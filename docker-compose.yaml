@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  setgame-db:
+    image: mysql
+    container_name: setgame_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: RootPassword123!
+      MYSQL_DATABASE: SetGameDb
+      MYSQL_USER: setgame_user
+      MYSQL_PASSWORD: SecretPassword123!
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
+
+  setgame-phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: setgame_phpmyadmin
+    environment:
+      PMA_HOST: setgame-db
+      PMA_PORT: 3306
+    ports:
+      - "8080:80"
+    depends_on:
+      - setgame-db
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
