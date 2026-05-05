@@ -13,6 +13,28 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
+// CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular", policy =>
+    {
+        var origins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+
+        if (origins != null && origins.Length > 0)
+        {
+            policy.WithOrigins(origins)
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        }
+        else
+        {
+            policy.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        }
+    });
+});
+
 // Database Configuratie
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<SetGameDbContext>(options =>
@@ -48,6 +70,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAngular");
 
 app.UseAuthentication();
 app.UseAuthorization();

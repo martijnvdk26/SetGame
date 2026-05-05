@@ -51,5 +51,12 @@ namespace SetGameAPI.Controllers
             
             return Ok(new { IsValidSet = isSet });
         }
+
+        [HttpGet("ping")]
+        [AllowAnonymous]
+        public IActionResult Ping()
+        {
+            return Ok(new { bericht = "Tsjakka! De verbinding tussen Angular en .NET is geslaagd!" });
+        }
     }
 }
