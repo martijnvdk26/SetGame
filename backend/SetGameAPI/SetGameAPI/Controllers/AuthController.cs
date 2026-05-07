@@ -42,9 +42,9 @@ namespace SetGameAPI.Controllers
         public async Task<IActionResult> Login([FromBody] AuthRequest request)
         {
             var user = await _userRepository.GetUserByUsernameAsync(request.Username);
-            
+
             // Password check (simpel gehouden voor schoolproject)
-            if (user == null || user.PasswordHash != request.Password) 
+            if (user == null || user.PasswordHash != request.Password)
                 return Unauthorized("Ongeldige inloggegevens.");
 
             var token = GenerateJwtToken(user);

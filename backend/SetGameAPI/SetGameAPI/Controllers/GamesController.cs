@@ -37,19 +37,21 @@ namespace SetGameAPI.Controllers
         {
             var userId = GetUserId();
             var response = await _gameService.GetGameAsync(id, userId);
-            
+
             if (response == null) return NotFound("Spel niet gevonden of behoort niet tot jou.");
-            
+
             return Ok(response);
         }
 
         [HttpPost("{id}/check-set")]
-        public async Task<IActionResult> CheckSet(int id, [FromBody] CheckSetRequest request) // Nu met Request Object
+        public async Task<IActionResult> CheckSet(int id, [FromBody] CheckSetRequest request)
         {
             var userId = GetUserId();
-            var isSet = await _gameService.CheckSetAsync(id, userId, request.CardIds);
-            
-            return Ok(new { IsValidSet = isSet });
+            var response = await _gameService.CheckSetAsync(id, userId, request.CardIds);
+
+            if (response == null) return NotFound("Spel niet gevonden.");
+
+            return Ok(response);  // Nu hele GameResponse in plaats van { IsValidSet: true/false }
         }
 
         [HttpGet("ping")]

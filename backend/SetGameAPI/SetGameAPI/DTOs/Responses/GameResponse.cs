@@ -3,6 +3,9 @@
 public class GameResponse
 {
     public int Id { get; set; }
-    public string Status { get; set; } = string.Empty;
-    public List <CardResponse> Cards { get; set; } = new List<CardResponse>();
+    public string Status { get; set; }
+    public List<CardResponse> Cards { get; set; }
+    public int CardsRemainingInDeck { get; set; }
+    public DateTime StartTime { get; set; }
+    public DateTime? EndTime { get; set; }
 }

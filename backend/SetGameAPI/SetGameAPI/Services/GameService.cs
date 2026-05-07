@@ -25,6 +25,11 @@ public class GameService : IGameService
             Cards = GenerateDeck()
         };
 
+        for (int i = 0; i < 12 && i < game.Cards.Count; i++)
+        {
+            game.Cards[i].IsInPlay = true;
+        }
+
         var createdGame = await _gameRepository.AddGameAsync(game);
         return MaptoResponse(createdGame);
     }
@@ -39,18 +44,47 @@ public class GameService : IGameService
         return MaptoResponse(game);
     }
 
-    public async Task<bool> CheckSetAsync(int gameId, int userId, List<int> cardIDs)
+    public async Task<GameResponse?> CheckSetAsync(int gameId, int userId, List<int> cardIDs)
     {
-        if (cardIDs == null || cardIDs.Count != 3) return false;
+        if (cardIDs == null || cardIDs.Count != 3) return null;
         
         var game = await _gameRepository.GetGameByIdAsync(gameId);
 
-        if (game == null || game.UserId != userId) return false;
+        if (game == null || game.UserId != userId) return null;
         
         var selectedCards = game.Cards.Where(c => cardIDs.Contains(c.Id)).ToList();
-        if (selectedCards.Count != 3) return false;
+        if (selectedCards.Count != 3) return null;
+
+        bool isValidSet = IsValidSet(selectedCards[0], selectedCards[1], selectedCards[2]);
+
+        if (isValidSet){
+            foreach (var card in selectedCards)
+            {
+                card.IsMatched = true;
+                card.IsInPlay = false;
+            }
+
+            var unplayedCards = game.Cards.Where(c => !c.IsInPlay && !c.IsMatched).ToList();
+            int cardsToAdd = Math.Min(3, unplayedCards.Count);
+
+            for (int i = 0; i < cardsToAdd; i++)
+            {
+                unplayedCards[i].IsInPlay = true;
+            }
+            
+            var remainingInPlayCards = game.Cards.Where(c => c.IsInPlay).ToList();
+            var deckCards = game.Cards.Where(c => !c.IsInPlay && !c.IsMatched).ToList();
+
+            if (deckCards.Count == 0 && !HasValidSetOnBoard(remainingInPlayCards))
+            {
+                game.Status = GameStatus.Won;
+                game.EndTime = DateTime.UtcNow;
+            }
+            
+            await _gameRepository.UpdateGameAsync(game);
+        }
         
-        return IsValidSet (selectedCards [0], selectedCards [1], selectedCards [2]);
+        return MaptoResponse(game);
     }
 
     private List<Card> GenerateDeck()
@@ -91,26 +125,54 @@ public class GameService : IGameService
 
     private bool IsValidFeature<T>(T f1, T f2, T f3)
     {
-        bool allSame = f1.Equals(f2) &&  f3.Equals(f3);
-        bool allDifferent = !f1.Equals(f2) && !f1.Equals(f3) &&  !f2.Equals(f3);
-        
+        bool allSame = f1.Equals(f2) && f2.Equals(f3);
+        bool allDifferent = !f1.Equals(f2) && !f1.Equals(f3) && !f2.Equals(f3);
+
         return allSame || allDifferent;
     }
 
     private GameResponse MaptoResponse(Game game)
     {
+        var inPlayCards = game.Cards.Where(c => c.IsInPlay).ToList();
+        var deckCards = game.Cards.Where(c => !c.IsInPlay && !c.IsMatched).ToList();
+
         return new GameResponse
         {
             Id = game.Id,
             Status = game.Status.ToString(),
-            Cards = game.Cards.Select(c => new CardResponse
+            Cards = inPlayCards.Select(c => new CardResponse
             {
                 Id = c.Id,
                 Color = c.Color.ToString(),
                 Number = c.Number.ToString(),
                 Shading = c.Shading.ToString(),
-                Shape = c.Shape.ToString()
-            }).ToList()
+                Shape = c.Shape.ToString(),
+                IsInPlay = c.IsInPlay,
+                IsMatched = c.IsMatched
+            }).ToList(),
+            CardsRemainingInDeck = deckCards.Count,
+            StartTime = game.StartTime,
+            EndTime = game.EndTime
         };
     }
+
+    private bool HasValidSetOnBoard(List<Card> cardsInPlay)
+    {
+        for (int i = 0; i < cardsInPlay.Count; i++)
+        {
+            for (int j = i + 1; j < cardsInPlay.Count; j++)
+            {
+                for (int k = j + 1; k < cardsInPlay.Count; k++)
+                {
+                    if (IsValidSet(cardsInPlay[i], cardsInPlay[j], cardsInPlay[k]))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+    
 }
