@@ -29,7 +29,7 @@ export class RegisterComponent {
     try {
       await this.auth.register(this.username, this.password);
       await this.auth.login(this.username, this.password); // Meteen inloggen
-      await this.router.navigate(['/game-board']); // Doorsturen naar het bord!
+      await this.router.navigate(['/games']); // Doorsturen naar het bord!
     } catch {
       this.error = 'Registratie mislukt. Mogelijk bestaat deze gebruiker al.';
     } finally {

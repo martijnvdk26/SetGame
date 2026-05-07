@@ -36,6 +36,10 @@ export class GameBoardComponent implements OnInit {
     this.gameService.clearSelection();
   }
 
+  goHome() {
+    this.router.navigate(['/games']);
+  }
+
   logout(): void {
     this.auth.logout();
     this.router.navigate(['/login']);

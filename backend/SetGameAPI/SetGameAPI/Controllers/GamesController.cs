@@ -60,5 +60,13 @@ namespace SetGameAPI.Controllers
         {
             return Ok(new { bericht = "Tsjakka! De verbinding tussen Angular en .NET is geslaagd!" });
         }
+        
+        [HttpGet]
+        public async Task<IActionResult> GetGames()
+        {
+            var userId = GetUserId();
+            var response = await _gameService.GetGamesAsync(userId);
+            return Ok(response);
+        }
     }
 }

@@ -86,6 +86,14 @@ public class GameService : IGameService
         
         return MaptoResponse(game);
     }
+    
+    public async Task<List<GameResponse>> GetGamesAsync(int userId)
+    {
+        var games = await _gameRepository.GetActiveGameByUserIdAsync(userId);
+    
+        // We gebruiken de bestaande MaptoResponse methode om de lijst om te zetten
+        return games.Select(MaptoResponse).ToList();
+    }
 
     private List<Card> GenerateDeck()
     {

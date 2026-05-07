@@ -5,7 +5,13 @@
       <p *ngIf="auth.currentUsername()">Ingelogd als {{ auth.currentUsername() }}</p>
     </div>
 
-    <button (click)="logout()">Logout</button>
+    <div class = "topbar-buttons">
+
+    <button (click)="goHome()">Home</button>
+
+    <button (click)="logout()">Uitloggen</button>
+
+    </div>
   </div>
 
   <div class="status">

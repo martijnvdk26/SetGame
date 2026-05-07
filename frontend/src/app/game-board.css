@@ -12,6 +12,11 @@
   margin-bottom: 16px;
 }
 
+.topbar-buttons{
+  display: flex;
+  gap: 10px;
+}
+
 .status {
   min-height: 32px;
   margin-bottom: 8px;

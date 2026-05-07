@@ -21,7 +21,7 @@ export interface GameResponse {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GameService {
   private currentGame = signal<GameResponse | null>(null);
@@ -55,7 +55,29 @@ export class GameService {
           this.error.set('Kon geen nieuw spel starten.');
           this.loading.set(false);
           reject();
-        }
+        },
+      });
+    });
+  }
+
+  loadExistingGame(gameId: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.loading.set(true);
+      this.error.set(null);
+      this.message.set(null);
+
+      this.api.getGame(gameId).subscribe({
+        next: (response: GameResponse) => {
+          this.currentGame.set(response);
+          this.selectedCardIds.set([]); // Zorg dat er geen kaarten meer geselecteerd zijn
+          this.loading.set(false);
+          resolve();
+        },
+        error: () => {
+          this.error.set('Kon het bestaande spel niet inladen.');
+          this.loading.set(false);
+          reject();
+        },
       });
     });
   }
@@ -66,7 +88,7 @@ export class GameService {
     const current = this.selectedCardIds();
 
     if (current.includes(cardId)) {
-      this.selectedCardIds.set(current.filter(id => id !== cardId));
+      this.selectedCardIds.set(current.filter((id) => id !== cardId));
       return;
     }
 
@@ -106,7 +128,7 @@ export class GameService {
         this.selectedCardIds.set([]);
 
         const selectedRemoved = cardIds.every(
-          id => !response.cards.some(card => card.id === id)
+          (id) => !response.cards.some((card) => card.id === id),
         );
 
         if (response.status === 'Won') {
@@ -122,7 +144,7 @@ export class GameService {
       error: () => {
         this.error.set('Set check mislukt.');
         this.loading.set(false);
-      }
+      },
     });
   }
 }
