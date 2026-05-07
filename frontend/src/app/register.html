@@ -1,13 +1,13 @@
 <div class="login-box">
-  <h1>SetGame</h1>
-  <p>Log in om verder te gaan.</p>
+  <h1>SetGame Registreren</h1>
+  <p>Maak een nieuw account aan om te beginnen.</p>
 
   <label>
     Gebruikersnaam
     <input
       type="text"
       [(ngModel)]="username"
-      placeholder="Voer gebruikersnaam in"
+      placeholder="Kies een gebruikersnaam"
     />
   </label>
 
@@ -16,17 +16,17 @@
     <input
       type="password"
       [(ngModel)]="password"
-      placeholder="Voer wachtwoord in"
+      placeholder="Kies een wachtwoord"
     />
   </label>
 
   <p class="error">{{ error }}</p>
 
   <div class="buttons">
-    <button (click)="login()" [disabled]="loading">Login</button>
+    <button (click)="register()" [disabled]="loading">Registreer</button>
   </div>
 
   <p style="margin-top: 15px; text-align: center;">
-    Nog geen account? <a routerLink="/register">Registreer hier</a>.
+    Heb je al een account? <a routerLink="/login">Log hier in</a>.
   </p>
 </div>
