@@ -36,7 +36,29 @@ export class GameService {
   errorMessage = computed(() => this.error());
   infoMessage = computed(() => this.message());
 
-  constructor(private api: Api) {}
+  constructor(private api: Api) {
+    this.restoreGameFromStorage();
+  }
+
+  private restoreGameFromStorage(): void {
+    const storedGame = localStorage.getItem('currentGame');
+    if (storedGame) {
+      try {
+        const gameData = JSON.parse(storedGame);
+        this.currentGame.set(gameData);
+      } catch (e) {
+        console.error('Failed to restore game from storage', e);
+        localStorage.removeItem('currentGame');
+      }
+    }
+  }
+
+  private saveGameToStorage(): void {
+    const game = this.currentGame();
+    if (game) {
+      localStorage.setItem('currentGame', JSON.stringify(game));
+    }
+  }
 
   startNewGame(): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -47,6 +69,7 @@ export class GameService {
       this.api.startGame().subscribe({
         next: (response: GameResponse) => {
           this.currentGame.set(response);
+          this.saveGameToStorage();
           this.selectedCardIds.set([]);
           this.loading.set(false);
           resolve();
@@ -69,7 +92,8 @@ export class GameService {
       this.api.getGame(gameId).subscribe({
         next: (response: GameResponse) => {
           this.currentGame.set(response);
-          this.selectedCardIds.set([]); // Zorg dat er geen kaarten meer geselecteerd zijn
+          this.saveGameToStorage();
+          this.selectedCardIds.set([]);
           this.loading.set(false);
           resolve();
         },
@@ -112,6 +136,7 @@ export class GameService {
     this.loading.set(false);
     this.error.set(null);
     this.message.set(null);
+    localStorage.removeItem('currentGame');
   }
 
   private checkSet(cardIds: number[]): void {
@@ -125,6 +150,7 @@ export class GameService {
     this.api.checkSet(game.id, cardIds).subscribe({
       next: (response: GameResponse) => {
         this.currentGame.set(response);
+        this.saveGameToStorage();
         this.selectedCardIds.set([]);
 
         const selectedRemoved = cardIds.every(

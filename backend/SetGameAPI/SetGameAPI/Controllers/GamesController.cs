@@ -58,7 +58,7 @@ namespace SetGameAPI.Controllers
         [AllowAnonymous]
         public IActionResult Ping()
         {
-            return Ok(new { bericht = "Tsjakka! De verbinding tussen Angular en .NET is geslaagd!" });
+            return Ok(new { bericht = "Goed bezig! De verbinding tussen Angular en .NET is geslaagd!" });
         }
         
         [HttpGet]

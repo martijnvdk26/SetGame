@@ -2,47 +2,108 @@
   <div class="topbar">
     <div>
       <h1>SetGame</h1>
-      <p *ngIf="auth.currentUsername()">Ingelogd als {{ auth.currentUsername() }}</p>
+      @if (auth.currentUsername()) {
+        <p>Ingelogd als {{ auth.currentUsername() }}</p>
+      }
     </div>
 
-    <div class = "topbar-buttons">
-
-    <button (click)="goHome()">Home</button>
-
-    <button (click)="logout()">Uitloggen</button>
-
+    <div class="topbar-buttons">
+      <button (click)="goHome()">Home</button>
+      <button (click)="logout()">Uitloggen</button>
     </div>
   </div>
 
   <div class="status">
-    <p *ngIf="gameService.isLoading()">Bezig...</p>
-    <p class="error" *ngIf="gameService.errorMessage()">{{ gameService.errorMessage() }}</p>
-    <p class="success" *ngIf="gameService.infoMessage()">{{ gameService.infoMessage() }}</p>
+    @if (gameService.isLoading()) {
+      <p>Bezig...</p>
+    }
+    @if (gameService.errorMessage()) {
+      <p class="error">{{ gameService.errorMessage() }}</p>
+    }
+    @if (gameService.infoMessage()) {
+      <p class="success">{{ gameService.infoMessage() }}</p>
+    }
   </div>
 
-  <div class="meta" *ngIf="gameService.game() as game">
-    <p><strong>Status:</strong> {{ game.status }}</p>
-    <p><strong>Kaarten in deck:</strong> {{ game.cardsRemainingInDeck }}</p>
-  </div>
+  @if (gameService.game(); as game) {
+    <div class="meta">
+      <p><strong>Status:</strong> {{ game.status }}</p>
+      <p><strong>Kaarten in deck:</strong> {{ game.cardsRemainingInDeck }}</p>
+    </div>
+  }
 
-  <div class="board" *ngIf="gameService.game() as game">
-    <button
-      class="card"
-      *ngFor="let card of game.cards"
-      (click)="select(card.id)"
-      [class.selected]="gameService.selectedIds().includes(card.id)"
-    >
-      <span class="color" [style.color]="colorMap(card.color)">
-        {{ card.color }}
-      </span>
+  <svg
+    class="svg-defs"
+    width="0"
+    height="0"
+    viewBox="0 0 0 0"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <defs>
+      <pattern id="stripes-red" x="0" y="0" width="4%" height="100%">
+        <line x1="0" x2="0" y1="0" y2="110" stroke="red" stroke-width="6" />
+        <line x1="6" x2="6" y1="0" y2="110" stroke="white" stroke-width="6" />
+      </pattern>
 
-      <span class="shape">
-        {{ card.number }} × {{ card.shape }}
-      </span>
+      <pattern id="stripes-purple" x="0" y="0" width="4%" height="100%">
+        <line x1="0" x2="0" y1="0" y2="110" stroke="purple" stroke-width="6" />
+        <line x1="6" x2="6" y1="0" y2="110" stroke="white" stroke-width="6" />
+      </pattern>
 
-      <small class="shading">{{ card.shading }}</small>
-    </button>
-  </div>
+      <pattern id="stripes-green" x="0" y="0" width="4%" height="100%">
+        <line x1="0" x2="0" y1="0" y2="110" stroke="green" stroke-width="6" />
+        <line x1="6" x2="6" y1="0" y2="110" stroke="white" stroke-width="6" />
+      </pattern>
+
+      <polygon id="card_Diamond" points="70,10 140,50 70,90 0,50" />
+      <path id="card_Pill" d="M40,20 h60 a10,10 0 0,1 0,60 h-60 a10,10 0 0,1 0,-60 z" />
+      <path
+        id="card_Wave"
+        d="m120,80 c -33.75685,8.91515 -49.82102,-22.618985
+           -85.69906,-2.45684
+           -33.732361,18.95634
+           -28.088041,-29.91082
+           -6.324077,-41.199414
+           36.329577,-18.843527
+           55.277837,14.796098 82.297297,9e-6 49.18508,-26.934178 38.73604,35.994675 9.72584,43.656245 z"
+      />
+    </defs>
+  </svg>
+
+  @if (gameService.game(); as game) {
+    <div class="board">
+      @for (card of game.cards; track card.id) {
+        <button
+          class="card"
+          (click)="select(card.id)"
+          [class.selected]="isSelected(card.id)"
+          type="button"
+        >
+          <svg viewBox="0 0 150 120" class="card-svg" [attr.aria-label]="card.shape + ' ' + card.color">
+            @for (y of getShapeYPositions(card.number); track $index) {
+              <g>
+                <use
+                  [attr.href]="shapeHref(card.shape)"
+                  [attr.transform]="'translate(0,' + (y - 50) + ')'"
+                  [attr.fill]="
+                    shadingClass(card.shading) === 'striped'
+                      ? 'url(#' + patternId(card.color) + ')'
+                      : shadingClass(card.shading) === 'outline'
+                        ? 'none'
+                        : colorMap(card.color)
+                  "
+                  [attr.stroke]="colorMap(card.color)"
+                  stroke-width="2.6"
+                  class="shape"
+                ></use>
+              </g>
+            }
+          </svg>
+        </button>
+      }
+    </div>
+  }
 
   <div class="actions">
     <button (click)="newGame()" [disabled]="gameService.isLoading()">Nieuw spel</button>

@@ -1,33 +1,43 @@
 <div class="overview-container">
   <h2>Mijn Spellen</h2>
+
   <button class="new-game-btn" (click)="startNewGame()">Nieuw spel starten</button>
 
-  <table *ngIf="games.length > 0">
-    <thead>
-    <tr>
-      <th>Spel ID</th>
-      <th>Status</th>
-      <th>Start Tijd</th>
-      <th>Eind Tijd</th>
-      <th>Actie</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let game of games">
-      <td>{{ game.id }}</td>
-      <td>{{ game.status }}</td>
-      <td>{{ game.startTime | date:'short' }}</td>
-      <td>{{ game.endTime ? (game.endTime | date:'short') : '-' }}</td>
-      <td>
-        <button *ngIf="game.status === 'InProgress'" (click)="continueGame(game.id)">Ga verder</button>
-        <span *ngIf="game.status !== 'InProgress'">Afgerond</span>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-
-  <p *ngIf="games.length === 0">Je hebt nog geen spellen gespeeld.</p>
-
+  @if (loading()) {
+    <p>Spellen worden geladen...</p>
+  } @else if (error()) {
+    <p class="error">{{ error() }}</p>
+  } @else if (games().length > 0) {
+    <table>
+      <thead>
+        <tr>
+          <th>Spel ID</th>
+          <th>Status</th>
+          <th>Start Tijd</th>
+          <th>Eind Tijd</th>
+          <th>Actie</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (game of games(); track game.id) {
+          <tr>
+            <td>{{ game.id }}</td>
+            <td>{{ game.status }}</td>
+            <td>{{ game.startTime | date:'short' }}</td>
+            <td>{{ game.endTime ? (game.endTime | date:'short') : '-' }}</td>
+            <td>
+              @if (game.status === 'InProgress') {
+                <button (click)="continueGame(game.id)">Ga verder</button>
+              } @else {
+                <span>Afgerond</span>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <p>Je hebt nog geen spellen gespeeld.</p>
+  }
   <button class="logout-button" (click)="logout()">Uitloggen</button>
-
 </div>
