@@ -14,6 +14,7 @@ public class SetGameDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Game> Games { get; set; }
     public DbSet<Card> Cards { get; set; }
+    public DbSet<Set> Sets { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -30,5 +31,11 @@ public class SetGameDbContext : DbContext
             .HasOne(c => c.Game)
             .WithMany(g => g.Cards)
             .HasForeignKey(c => c.GameId);
+
+        // One Game can have many Sets; Set stores GameId as FK.
+        modelBuilder.Entity<Set>()
+            .HasOne(s => s.Game)
+            .WithMany(g => g.FoundSets)
+            .HasForeignKey(s => s.GameId);
     }
 }

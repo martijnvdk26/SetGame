@@ -1,4 +1,166 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PropertiesComponent">{}</component>
+  <component name="ChangeListManager">
+    <list default="true" id="217ec3ee-67be-4bb4-9fde-446f3cf26211" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/Controllers/AuthController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/DTOs/Requests/AuthRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/DTOs/Requests/LoginRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/bin/Debug/net9.0/SetGameAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/bin/Debug/net9.0/SetGameAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/bin/Debug/net9.0/SetGameAPI.exe" beforeDir="false" afterPath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/bin/Debug/net9.0/SetGameAPI.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/bin/Debug/net9.0/SetGameAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/bin/Debug/net9.0/SetGameAPI.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/SetGameAPI.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/SetGameAPI.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/SetGameAPI.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/SetGameAPI.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/SetGameAPI.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/SetGameAPI.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/SetGameAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/SetGameAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/SetGameAPI.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/SetGameAPI.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/SetGameAPI.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/SetGameAPI.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/apphost.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/ref/SetGameAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/ref/SetGameAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/refint/SetGameAPI.dll" beforeDir="false" afterPath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/refint/SetGameAPI.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/rjsmcshtml.dswa.cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/rjsmcshtml.dswa.cache.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/rjsmrazor.dswa.cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/rjsmrazor.dswa.cache.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/rpswa.dswa.cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/SetGameAPI/SetGameAPI/obj/Debug/net9.0/rpswa.dswa.cache.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/app.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/game-board.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/game/game-board/game-board.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/game-board.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/game/game-board/game-board.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/game-board.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/game/game-board/game-board.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/game-board.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/game/game-board/game-board.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/games-overview.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/game/games-overview/games-overview.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/games-overview.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/game/games-overview/games-overview.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/games-overview.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/game/games-overview/games-overview.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/games-overview.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/game/games-overview/games-overview.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/guards/auth-guard.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/shared/guards/auth-guard.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/guards/auth-guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/shared/guards/auth-guard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/auth/login/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/auth/login/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/login.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/auth/login/login.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/login.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/auth/login/login.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/register.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/register.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/register.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/register.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/services/api.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/shared/services/api.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/services/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/shared/services/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/services/auth.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/auth/services/auth.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/services/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/auth/services/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/services/game.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/game/services/game.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/services/game.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/game/services/game.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotChats">
+    <option name="panelChat">
+      <chat>
+        <option name="activeSessionId" value="c1e85067-c561-4b50-bdc0-fc9311c6fbe1" />
+        <option name="sessions">
+          <session>
+            <option name="chatType" value="PANEL" />
+            <option name="id" value="cd305077-bc7b-4c0a-8a55-1f57182e1284" />
+            <option name="modeId" value="Ask" />
+            <option name="modelType" value="builtin_family" />
+            <option name="modelValue" value="claude-haiku-4.5" />
+            <option name="targetType" value="LOCAL" />
+          </session>
+          <session>
+            <option name="chatType" value="PANEL" />
+            <option name="id" value="c1e85067-c561-4b50-bdc0-fc9311c6fbe1" />
+            <option name="modeId" value="Ask" />
+            <option name="modelType" value="builtin_family" />
+            <option name="modelValue" value="claude-haiku-4.5" />
+            <option name="targetType" value="LOCAL" />
+          </session>
+        </option>
+        <option name="type" value="PANEL" />
+      </chat>
+    </option>
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_D:/SetGame/backend" value="3DfXFLkBpUhCFGGLx4YfrBAgyNa" />
+    </persistenceIdMap>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "martijnvdk26"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/martijnvdk26/SetGame.git",
+    "accountId": "b294f49b-fd0c-46df-a72d-e6250e07b8ab"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1,
+  "fromUser": false
+}]]></component>
+  <component name="ProjectId" id="3DfXFLkBpUhCFGGLx4YfrBAgyNa" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "cidr.known.project.marker": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "main",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="217ec3ee-67be-4bb4-9fde-446f3cf26211" name="Changes" comment="" />
+      <created>1778673994048</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1778673994048</updated>
+      <workItem from="1778673995387" duration="14000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
 </project>

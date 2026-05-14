@@ -12,6 +12,7 @@ namespace SetGameAPI.Repositories
         {
             return await context.Games
                 .Include(g => g.Cards)
+                .Include(g => g.FoundSets)
                 .FirstOrDefaultAsync(g => g.Id == id);
         }
 

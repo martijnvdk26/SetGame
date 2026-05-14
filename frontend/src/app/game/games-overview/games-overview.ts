@@ -2,9 +2,9 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { finalize } from 'rxjs/operators';
-import { Api } from './services/api';
-import { GameService } from './services/game';
-import { AuthService } from './services/auth';
+import { Api } from '../../shared/services/api';
+import { GameService } from '../services/game';
+import { AuthService } from '../../auth/services/auth';
 
 export interface GameOverviewItem {
   id: number;
@@ -60,8 +60,8 @@ export class GamesOverviewComponent implements OnInit {
 
   async startNewGame(): Promise<void> {
     try {
-      await this.gameService.startNewGame();
-      await this.router.navigate(['/game-board']);
+      const gameId = await this.gameService.startNewGame();
+      await this.router.navigate(['/game-board', gameId]);
     } catch (err) {
       console.error('Nieuw spel starten mislukt', err);
       this.error.set('Nieuw spel starten mislukt.');
@@ -71,11 +71,26 @@ export class GamesOverviewComponent implements OnInit {
   async continueGame(gameId: number): Promise<void> {
     try {
       await this.gameService.loadExistingGame(gameId);
-      await this.router.navigate(['/game-board']);
+      await this.router.navigate(['/game-board', gameId]);
     } catch (err) {
       console.error('Fout bij laden van spel', err);
       this.error.set('Dit spel kon niet worden geladen.');
     }
+  }
+
+  async abandonGame(gameId: number): Promise<void> {
+    try {
+      await this.api.abandonGame(gameId).toPromise();
+      this.gameService.reset();
+      this.loadGames();
+    } catch (err) {
+      console.error('Fout bij stoppen van spel', err);
+      this.error.set('Spel kon niet worden gestopt.');
+    }
+  }
+
+  viewStatistics(gameId: number): void {
+    this.router.navigate(['/game', gameId, 'statistics']);
   }
 
   logout(): void {

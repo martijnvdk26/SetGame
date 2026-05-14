@@ -8,4 +8,5 @@ public class GameResponse
     public int CardsRemainingInDeck { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime? EndTime { get; set; }
+    public int SetsFound { get; set; }
 }

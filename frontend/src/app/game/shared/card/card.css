@@ -1,0 +1,16 @@
+:host {
+  display: inline-block;
+}
+
+.svg-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.card-svg {
+  width: 60px;
+  height: 40px;
+  display: block;
+}

@@ -1,0 +1,148 @@
+.overview-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+}
+
+.topbar h2 {
+  margin: 0;
+}
+
+.new-game-btn {
+  padding: 12px 24px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.new-game-btn:hover {
+  background-color: #45a049;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table thead {
+  background-color: #f5f5f5;
+}
+
+table th {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+  font-weight: bold;
+}
+
+table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-continue,
+.btn-abandon,
+.btn-stats {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-continue {
+  background-color: #2196f3;
+  color: white;
+}
+
+.btn-continue:hover {
+  background-color: #0b7dda;
+}
+
+.btn-abandon {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-abandon:hover {
+  background-color: #da190b;
+}
+
+.btn-stats {
+  background-color: #ff9800;
+  color: white;
+}
+
+.btn-stats:hover {
+  background-color: #e68900;
+}
+
+.logout-button {
+  padding: 8px 16px;
+  background-color: #666;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #555;
+}
+
+.error {
+  color: #d32f2f;
+  padding: 12px;
+  background-color: #ffebee;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .overview-container {
+    padding: 10px;
+  }
+
+  .actions-cell {
+    flex-direction: column;
+  }
+
+  .btn-continue,
+  .btn-abandon,
+  .btn-stats {
+    width: 100%;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  table th,
+  table td {
+    padding: 8px;
+  }
+}

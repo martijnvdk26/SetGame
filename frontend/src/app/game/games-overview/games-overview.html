@@ -1,5 +1,8 @@
 <div class="overview-container">
-  <h2>Mijn Spellen</h2>
+  <div class="topbar">
+    <h2>Mijn Spellen</h2>
+    <button class="logout-button" (click)="logout()">Uitloggen</button>
+  </div>
 
   <button class="new-game-btn" (click)="startNewGame()">Nieuw spel starten</button>
 
@@ -15,7 +18,7 @@
           <th>Status</th>
           <th>Start Tijd</th>
           <th>Eind Tijd</th>
-          <th>Actie</th>
+          <th>Acties</th>
         </tr>
       </thead>
       <tbody>
@@ -26,11 +29,13 @@
             <td>{{ game.startTime | date:'short' }}</td>
             <td>{{ game.endTime ? (game.endTime | date:'short') : '-' }}</td>
             <td>
-              @if (game.status === 'InProgress') {
-                <button (click)="continueGame(game.id)">Ga verder</button>
-              } @else {
-                <span>Afgerond</span>
-              }
+              <div class="actions-cell">
+                @if (game.status === 'InProgress') {
+                  <button class="btn-continue" (click)="continueGame(game.id)">Ga verder</button>
+                  <button class="btn-abandon" (click)="abandonGame(game.id)">Stoppen</button>
+                }
+                <button class="btn-stats" (click)="viewStatistics(game.id)">Statistieken</button>
+              </div>
             </td>
           </tr>
         }
@@ -39,5 +44,4 @@
   } @else {
     <p>Je hebt nog geen spellen gespeeld.</p>
   }
-  <button class="logout-button" (click)="logout()">Uitloggen</button>
 </div>

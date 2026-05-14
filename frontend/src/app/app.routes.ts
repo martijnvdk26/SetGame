@@ -1,15 +1,16 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './guards/auth-guard';
-import { LoginComponent } from './login';
-import { GameBoardComponent } from './game-board';
-import { RegisterComponent } from './register';
-import { GamesOverviewComponent } from './games-overview'; // Vergeet de import niet
+import { authGuard } from './shared/guards/auth-guard';
+import { LoginComponent } from './auth/login/login';
+import { GameBoardComponent } from './game/game-board/game-board';
+import { GamesOverviewComponent } from './game/games-overview/games-overview';
+import { GameStatisticsComponent } from './game/game-statistics/game-statistics/game-statistics';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'games', component: GamesOverviewComponent, canActivate: [authGuard] }, // Nieuwe overzichtspagina
+  { path: 'games', component: GamesOverviewComponent, canActivate: [authGuard] },
   { path: 'game-board', component: GameBoardComponent, canActivate: [authGuard] },
+  { path: 'game-board/:gameId', component: GameBoardComponent, canActivate: [authGuard] },
+  { path: 'game/:gameId/statistics', component: GameStatisticsComponent, canActivate: [authGuard] },
   { path: '**', redirectTo: 'login' },
 ];

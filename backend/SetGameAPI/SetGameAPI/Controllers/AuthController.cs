@@ -22,24 +22,8 @@ namespace SetGameAPI.Controllers
             _configuration = configuration;
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] AuthRequest request)
-        {
-            var existingUser = await _userRepository.GetUserByUsernameAsync(request.Username);
-            if (existingUser != null) return BadRequest("Gebruiker bestaat al.");
-
-            var user = new User
-            {
-                Username = request.Username,
-                PasswordHash = request.Password // In een productie-app moet je dit hashen (bijv. met BCrypt)!
-            };
-
-            await _userRepository.CreateUserAsync(user);
-            return Ok(new { Message = "Gebruiker succesvol geregistreerd." });
-        }
-
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] AuthRequest request)
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             var user = await _userRepository.GetUserByUsernameAsync(request.Username);
 

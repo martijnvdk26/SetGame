@@ -1,6 +1,6 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Api } from './api';
+import { Api } from '../../shared/services/api';
 
 @Injectable({
   providedIn: 'root'
@@ -16,23 +16,6 @@ export class AuthService {
     private api: Api,
     private router: Router
   ) {}
-
-  register(username: string, password: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const timeout = setTimeout(() => reject(new Error('Verzoek getimedout')), 30000);
-
-      this.api.register(username, password).subscribe({
-        next: () => {
-          clearTimeout(timeout);
-          resolve();
-        },
-        error: (err) => {
-          clearTimeout(timeout);
-          reject(err);
-        }
-      });
-    });
-  }
 
   login(username: string, password: string): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -58,7 +41,21 @@ export class AuthService {
         },
         error: (err) => {
           clearTimeout(timeout);
-          reject(err);
+
+          let errorMessage = 'Login mislukt.';
+
+          if (err.error) {
+            if (typeof err.error === 'string') {
+              errorMessage = err.error;
+            }
+            else if (typeof err.error === 'object') {
+              errorMessage = err.error.message || err.error.title || JSON.stringify(err.error);
+            }
+          } else if (err.message) {
+            errorMessage = err.message;
+          }
+
+          reject(new Error(errorMessage));
         }
       });
     });

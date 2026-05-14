@@ -1,5 +1,5 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { Api } from './api';
+import { Api } from '../../shared/services/api';
 
 export interface CardResponse {
   id: number;
@@ -18,6 +18,22 @@ export interface GameResponse {
   cardsRemainingInDeck: number;
   startTime: string;
   endTime: string | null;
+  setsFound: number;
+}
+
+export interface FoundSetDto {
+  setId: number;
+  foundAt: string;
+  cards: CardResponse[];
+}
+
+export interface GameStatisticsResponse {
+  gameId: number;
+  status: string;
+  setsFound: number;
+  startTime: string;
+  endTime: string | null;
+  foundSets: FoundSetDto[];
 }
 
 @Injectable({
@@ -60,7 +76,7 @@ export class GameService {
     }
   }
 
-  startNewGame(): Promise<void> {
+  startNewGame(): Promise<number> {
     return new Promise((resolve, reject) => {
       this.loading.set(true);
       this.error.set(null);
@@ -72,7 +88,7 @@ export class GameService {
           this.saveGameToStorage();
           this.selectedCardIds.set([]);
           this.loading.set(false);
-          resolve();
+          resolve(response.id);
         },
         error: () => {
           this.error.set('Kon geen nieuw spel starten.');
@@ -83,7 +99,7 @@ export class GameService {
     });
   }
 
-  loadExistingGame(gameId: number): Promise<void> {
+  loadExistingGame(gameId: number): Promise<number> {
     return new Promise((resolve, reject) => {
       this.loading.set(true);
       this.error.set(null);
@@ -95,7 +111,7 @@ export class GameService {
           this.saveGameToStorage();
           this.selectedCardIds.set([]);
           this.loading.set(false);
-          resolve();
+          resolve(response.id);
         },
         error: () => {
           this.error.set('Kon het bestaande spel niet inladen.');

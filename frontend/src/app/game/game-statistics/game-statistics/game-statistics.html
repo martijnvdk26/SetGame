@@ -1,0 +1,67 @@
+<div class="page">
+  <div class="topbar">
+    <div>
+      <h1>SetGame - Statistieken</h1>
+      @if (auth.currentUsername()) {
+        <p>Ingelogd als {{ auth.currentUsername() }}</p>
+      }
+    </div>
+
+    <div class="topbar-buttons">
+      <button (click)="goBack()">Terug</button>
+      <button (click)="logout()">Uitloggen</button>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <p class="loading">Statistieken laden...</p>
+  } @else if (error()) {
+    <p class="error">{{ error() }}</p>
+  } @else if (statistics(); as stats) {
+    <div class="stats-container">
+      <div class="summary">
+        <h2>Spel #{{ stats.gameId }}</h2>
+        <div class="summary-item">
+          <span class="label">Status:</span>
+          <span class="value">{{ stats.status }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Sets gevonden:</span>
+          <span class="value">{{ stats.setsFound }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Start:</span>
+          <span class="value">{{ stats.startTime | date:'short' }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Eind:</span>
+          <span class="value">{{ stats.endTime ? (stats.endTime | date:'short') : '-' }}</span>
+        </div>
+      </div>
+
+      <div class="sets-list">
+        <h3>Gevonden Sets ({{ stats.foundSets.length }})</h3>
+
+        @if (stats.foundSets.length > 0) {
+          <div class="sets">
+            @for (foundSet of stats.foundSets; track foundSet.setId) {
+              <div class="set-item">
+                <p class="set-number">Set {{ $index + 1 }}</p>
+                <p class="set-time">{{ foundSet.foundAt | date:'short' }}</p>
+                <div class="set-cards">
+                  @for (card of foundSet.cards; track card.id) {
+                    <div class="set-card">
+                      <app-card [card]="card"></app-card>
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <p class="no-sets">Nog geen sets gevonden.</p>
+        }
+      </div>
+    </div>
+  }
+</div>

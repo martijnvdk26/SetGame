@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from './services/auth';
+import { AuthService } from '../services/auth';
 
 @Component({
   selector: 'app-login',
@@ -29,8 +29,8 @@ export class LoginComponent {
     try {
       await this.auth.login(this.username, this.password);
       await this.router.navigate(['/games']);
-    } catch {
-      this.error = 'Login mislukt. Controleer je gegevens.';
+    } catch (err: any) {
+      this.error = err.message || 'Login mislukt. Controleer je gegevens.';
     } finally {
       this.loading = false;
     }

@@ -39,23 +39,25 @@
 
 .board {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 4px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 160px));
+  gap: 24px;
   margin-bottom: 20px;
+  justify-content: flex-start;
 }
 
 .card {
   border: 2px solid #d1d5db;
   border-radius: 12px;
   background: white;
-  padding: 8px;
+  padding: 16px;
   cursor: pointer;
   transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 170px;
+  gap: 12px;
+  min-height: 200px;
   aspect-ratio: 3 / 4;
 }
 
@@ -72,22 +74,6 @@
   border-color: #2563eb;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
   background: #eff6ff;
-}
-
-.card-svg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.shape {
-  vector-effect: non-scaling-stroke;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-}
-
-.card-label {
-  display: none;
 }
 
 .actions {
@@ -120,9 +106,34 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.svg-defs {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
+.btn-abandon {
+  background: #fecaca;
+  border-color: #f87171;
+  color: #b91c1c;
+}
+
+.btn-abandon:hover {
+  background: #fca5a5;
+  border-color: #ef4444;
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 12px;
+  }
+
+  .board {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 120px));
+    gap: 12px;
+  }
+
+  .card {
+    min-height: 160px;
+    padding: 12px;
+  }
+
+  button {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
 }

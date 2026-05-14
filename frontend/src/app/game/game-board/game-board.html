@@ -1,0 +1,58 @@
+<div class="page">
+  <div class="topbar">
+    <div>
+      <h1>SetGame</h1>
+      @if (auth.currentUsername()) {
+        <p>Ingelogd als {{ auth.currentUsername() }}</p>
+      }
+    </div>
+
+    <div class="topbar-buttons">
+      <button (click)="goHome()">Home</button>
+      <button (click)="logout()">Uitloggen</button>
+    </div>
+  </div>
+
+  <div class="status">
+    @if (gameService.isLoading()) {
+      <p>Bezig...</p>
+    }
+    @if (gameService.errorMessage()) {
+      <p class="error">{{ gameService.errorMessage() }}</p>
+    }
+    @if (gameService.infoMessage()) {
+      <p class="success">{{ gameService.infoMessage() }}</p>
+    }
+  </div>
+
+  @if (gameService.game(); as game) {
+    <div class="meta">
+      <p><strong>Status:</strong> {{ game.status }}</p>
+      <p><strong>Kaarten in deck:</strong> {{ game.cardsRemainingInDeck }}</p>
+      <p><strong>Sets gevonden:</strong> {{ game.setsFound }}</p>
+    </div>
+  }
+
+  @if (gameService.game(); as game) {
+    <div class="board">
+      @for (card of game.cards; track card.id) {
+        <button
+          class="card"
+          (click)="select(card.id)"
+          [class.selected]="isSelected(card.id)"
+          type="button"
+        >
+          <app-card [card]="card"></app-card>
+        </button>
+      }
+    </div>
+  }
+
+  <div class="actions">
+    <button (click)="newGame()" [disabled]="gameService.isLoading()">Nieuw spel</button>
+    <button (click)="clearSelection()" [disabled]="gameService.isLoading()">Selectie wissen</button>
+    <button (click)="abandonGame()" [disabled]="gameService.isLoading()" class="btn-abandon">
+      Spel stoppen
+    </button>
+  </div>
+</div>

@@ -51,7 +51,28 @@ namespace SetGameAPI.Controllers
 
             if (response == null) return NotFound("Spel niet gevonden.");
 
-            return Ok(response);  // Nu hele GameResponse in plaats van { IsValidSet: true/false }
+            return Ok(response);
+        }
+
+        [HttpPost("{id}/abandon")]
+        public async Task<IActionResult> AbandonGame(int id)
+        {
+            var userId = GetUserId();
+            var response = await _gameService.AbandonGameAsync(id, userId);
+
+            if (response == null) return NotFound("Spel niet gevonden.");
+            return Ok(response);
+        }
+
+        [HttpGet("{id}/statistics")]
+        public async Task<IActionResult> GetStatistics(int id)
+        {
+            var userId = GetUserId();
+            var response = await _gameService.GetGameStatisticsAsync(id, userId);
+
+            if (response == null) return NotFound("Spel niet gevonden.");
+
+            return Ok(response);
         }
 
         [HttpGet("ping")]
@@ -60,7 +81,7 @@ namespace SetGameAPI.Controllers
         {
             return Ok(new { bericht = "Goed bezig! De verbinding tussen Angular en .NET is geslaagd!" });
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> GetGames()
         {
