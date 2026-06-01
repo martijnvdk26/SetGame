@@ -57,4 +57,11 @@ export class Api {
       { headers: this.headers() },
     );
   }
+
+  getHint(gameId: number): Observable<number[]> {
+    return this.http.get<number[]>(
+      `${this.apiUrl}/games/${gameId}/hint`,
+      { headers: this.headers() }
+    );
+  }
 }

@@ -75,6 +75,17 @@ namespace SetGameAPI.Controllers
             return Ok(response);
         }
 
+        [HttpGet("{id}/hint")]
+        public async Task<IActionResult> GetHint (int id)
+        {
+            var userId = GetUserId();
+            var response = await _gameService.GetHintAsync(id, userId);
+
+            if (response == null) return NotFound ("Spel niet gevonden of niet in uitvoering!");
+
+            return Ok(response);
+        }
+
         [HttpGet("ping")]
         [AllowAnonymous]
         public IActionResult Ping()

@@ -152,6 +152,38 @@ public class GameService : IGameService
         };
     }
 
+    public async Task<List<int>?> GetHintAsync(int gameId, int userId)
+    {
+        var game = await _gameRepository.GetGameByIdAsync(gameId);
+
+        if (game == null || game.UserId != userId || game.Status != GameStatus.InProgress)
+            return null;
+
+        var cardsInPlay = game.Cards.Where(c => c.IsInPlay).ToList();
+
+        for (int i = 0; i < cardsInPlay.Count; i++)
+        {
+            for (int j = i + 1; j < cardsInPlay.Count; j++)
+            {
+                for (int k = j + 1; k < cardsInPlay.Count; k++)
+                {
+                    if (IsValidSet(cardsInPlay[i], cardsInPlay[j], cardsInPlay[k]))
+                    {
+                        // We hogen het aantal hints op in de DB
+                        game.HintsUsed++;
+                        await _gameRepository.UpdateGameAsync(game);
+
+                        // We retourneren de ID's van TWEE kaarten van de gevonden set
+                        return new List<int> { cardsInPlay[i].Id, cardsInPlay[j].Id };
+                    }
+                }
+            }
+        }
+
+        // Retourneer een lege lijst als er geen set op het bord ligt
+        return new List<int>(); 
+    }
+
     private List<Card> GenerateDeck()
     {
         var deck = new List<Card>();

@@ -17,4 +17,5 @@ public class Game
 
     public int SetsFound { get; set; } = 0;
     public List<Set> FoundSets { get; set; } = new List<Set>();
+    public int HintsUsed {get; set;} = 0;
 }

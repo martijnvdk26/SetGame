@@ -76,6 +76,12 @@
   background: #eff6ff;
 }
 
+/* AANGEPAST: Alleen een strakke, permanente omlijning zonder oplichten/animatie */
+.card.hinted {
+  border-color: #fbbf24;
+  box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.4);
+}
+
 .actions {
   display: flex;
   gap: 12px;

@@ -40,6 +40,7 @@
           class="card"
           (click)="select(card.id)"
           [class.selected]="isSelected(card.id)"
+          [class.hinted]="isHinted(card.id)"
           type="button"
         >
           <app-card [card]="card"></app-card>
@@ -50,6 +51,7 @@
 
   <div class="actions">
     <button (click)="newGame()" [disabled]="gameService.isLoading()">Nieuw spel</button>
+    <button (click)="requestHint()" [disabled]="gameService.isLoading()">Geef een hint</button>
     <button (click)="clearSelection()" [disabled]="gameService.isLoading()">Selectie wissen</button>
     <button (click)="abandonGame()" [disabled]="gameService.isLoading()" class="btn-abandon">
       Spel stoppen

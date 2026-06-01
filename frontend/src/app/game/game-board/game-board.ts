@@ -45,6 +45,11 @@ export class GameBoardComponent implements OnInit {
     this.gameService.clearSelection();
   }
 
+  // NIEUW: Hint opvragen
+  requestHint(): void {
+    this.gameService.requestHint();
+  }
+
   goHome(): void {
     this.gameService.reset();
     this.router.navigate(['/games']);
@@ -70,5 +75,10 @@ export class GameBoardComponent implements OnInit {
 
   isSelected(cardId: number): boolean {
     return this.gameService.selectedIds().includes(cardId);
+  }
+
+  // NIEUW: Check of kaart ge-hint wordt
+  isHinted(cardId: number): boolean {
+    return this.gameService.hintedIds().includes(cardId);
   }
 }

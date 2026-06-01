@@ -42,12 +42,14 @@ export interface GameStatisticsResponse {
 export class GameService {
   private currentGame = signal<GameResponse | null>(null);
   private selectedCardIds = signal<number[]>([]);
+  private hintedCardIds = signal<number[]>([]);
   private loading = signal(false);
   private error = signal<string | null>(null);
   private message = signal<string | null>(null);
 
   game = computed(() => this.currentGame());
   selectedIds = computed(() => this.selectedCardIds());
+  hintedIds = computed(() => this.hintedCardIds());
   isLoading = computed(() => this.loading());
   errorMessage = computed(() => this.error());
   infoMessage = computed(() => this.message());
@@ -87,6 +89,7 @@ export class GameService {
           this.currentGame.set(response);
           this.saveGameToStorage();
           this.selectedCardIds.set([]);
+          this.hintedCardIds.set([]);
           this.loading.set(false);
           resolve(response.id);
         },
@@ -110,6 +113,7 @@ export class GameService {
           this.currentGame.set(response);
           this.saveGameToStorage();
           this.selectedCardIds.set([]);
+          this.hintedCardIds.set([]);
           this.loading.set(false);
           resolve(response.id);
         },
@@ -146,9 +150,32 @@ export class GameService {
     this.selectedCardIds.set([]);
   }
 
+  requestHint(): void {
+    const game = this.currentGame();
+    if (!game || this.loading()) return;
+
+    this.loading.set(true);
+    this.error.set(null);
+    this.message.set(null);
+
+    this.api.getHint(game.id).subscribe({
+      next: (cardIds: number[]) => {
+        this.hintedCardIds.set(cardIds);
+        this.loading.set(false);
+        // De setTimeout is hier verwijderd zodat de hints permanent blijven staan!
+      },
+      error: (err) => {
+        console.error("De exacte foutmelding van de backend is:", err);
+        this.error.set('Kon geen hint ophalen. Is er wel een set mogelijk?');
+        this.loading.set(false);
+      }
+    });
+  }
+
   reset(): void {
     this.currentGame.set(null);
     this.selectedCardIds.set([]);
+    this.hintedCardIds.set([]);
     this.loading.set(false);
     this.error.set(null);
     this.message.set(null);
@@ -168,6 +195,7 @@ export class GameService {
         this.currentGame.set(response);
         this.saveGameToStorage();
         this.selectedCardIds.set([]);
+        this.hintedCardIds.set([]); // Reset hints automatisch zodra er een set gecontroleerd is
 
         const selectedRemoved = cardIds.every(
           (id) => !response.cards.some((card) => card.id === id),

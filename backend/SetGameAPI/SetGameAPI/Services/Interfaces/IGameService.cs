@@ -10,4 +10,5 @@ public interface IGameService
     Task<List<GameResponse>> GetGamesAsync(int userId);
     Task<GameResponse?> AbandonGameAsync(int gameId, int userId);
     Task<GameStatisticsResponse?> GetGameStatisticsAsync(int gameId, int userId);
+    Task <List<int>?> GetHintAsync (int gameId, int userId);
 }
