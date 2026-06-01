@@ -27,8 +27,8 @@ namespace SetGameAPI.Controllers
         {
             var user = await _userRepository.GetUserByUsernameAsync(request.Username);
 
-            // Password check (simpel gehouden voor schoolproject)
-            if (user == null || user.PasswordHash != request.Password)
+            // Bcrypt checks the password
+            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
                 return Unauthorized("Ongeldige inloggegevens.");
 
             var token = GenerateJwtToken(user);

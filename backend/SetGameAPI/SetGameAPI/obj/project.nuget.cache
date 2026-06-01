@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "GQCTwSBBGMQ=",
+  "dgSpecHash": "TeAJWqTCwPQ=",
   "success": true,
   "projectFilePath": "D:\\SetGame\\backend\\SetGameAPI\\SetGameAPI\\SetGameAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\marti\\.nuget\\packages\\bcrypt.net-next\\4.2.0\\bcrypt.net-next.4.2.0.nupkg.sha512",
     "C:\\Users\\marti\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\marti\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\9.0.15\\microsoft.aspnetcore.authentication.jwtbearer.9.0.15.nupkg.sha512",
     "C:\\Users\\marti\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.13\\microsoft.aspnetcore.openapi.9.0.13.nupkg.sha512",

@@ -276,3 +276,4 @@ D:\SetGame\backend\SetGameAPI\SetGameAPI\obj\Debug\net9.0\refint\SetGameAPI.dll
 D:\SetGame\backend\SetGameAPI\SetGameAPI\obj\Debug\net9.0\SetGameAPI.pdb
 D:\SetGame\backend\SetGameAPI\SetGameAPI\obj\Debug\net9.0\SetGameAPI.genruntimeconfig.cache
 D:\SetGame\backend\SetGameAPI\SetGameAPI\obj\Debug\net9.0\ref\SetGameAPI.dll
+D:\SetGame\backend\SetGameAPI\SetGameAPI\bin\Debug\net9.0\BCrypt-Net-Next.dll
