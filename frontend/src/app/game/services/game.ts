@@ -19,6 +19,7 @@ export interface GameResponse {
   startTime: string;
   endTime: string | null;
   setsFound: number;
+  possibleSetsOnBoard: number; // Nieuw (Eis 3)
 }
 
 export interface FoundSetDto {
@@ -34,6 +35,7 @@ export interface GameStatisticsResponse {
   startTime: string;
   endTime: string | null;
   foundSets: FoundSetDto[];
+  possibleSetsOnBoard: number; // Nieuw (Eis 8)
 }
 
 @Injectable({
@@ -162,7 +164,6 @@ export class GameService {
       next: (cardIds: number[]) => {
         this.hintedCardIds.set(cardIds);
         this.loading.set(false);
-        // De setTimeout is hier verwijderd zodat de hints permanent blijven staan!
       },
       error: (err) => {
         console.error("De exacte foutmelding van de backend is:", err);
@@ -195,7 +196,7 @@ export class GameService {
         this.currentGame.set(response);
         this.saveGameToStorage();
         this.selectedCardIds.set([]);
-        this.hintedCardIds.set([]); // Reset hints automatisch zodra er een set gecontroleerd is
+        this.hintedCardIds.set([]); 
 
         const selectedRemoved = cardIds.every(
           (id) => !response.cards.some((card) => card.id === id),

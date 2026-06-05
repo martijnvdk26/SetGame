@@ -7,6 +7,10 @@ public class GameStatisticsResponse
     public int SetsFound { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime? EndTime { get; set; }
+    
+    // Nieuwe property om in de statistieken te tonen
+    public int PossibleSetsOnBoard { get; set; } 
+    
     public List<SetDetailsResponse> FoundSets { get; set; } = new();
 }
 

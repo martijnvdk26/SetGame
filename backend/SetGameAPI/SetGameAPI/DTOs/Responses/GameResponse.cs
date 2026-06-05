@@ -9,4 +9,7 @@ public class GameResponse
     public DateTime StartTime { get; set; }
     public DateTime? EndTime { get; set; }
     public int SetsFound { get; set; }
+    
+    // Nieuwe property om te tonen hoeveel sets er nu te vinden zijn
+    public int PossibleSetsOnBoard { get; set; } 
 }
