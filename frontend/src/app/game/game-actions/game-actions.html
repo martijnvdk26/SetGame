@@ -1,0 +1,6 @@
+<div class="actions">
+  <button (click)="newGame.emit()" [disabled]="gameService.isLoading()">Nieuw spel</button>
+  <button (click)="gameService.requestHint()" [disabled]="gameService.isLoading()">Geef een hint</button>
+  <button (click)="gameService.clearSelection()" [disabled]="gameService.isLoading()">Selectie wissen</button>
+  <button (click)="abandon.emit()" [disabled]="gameService.isLoading()" class="btn-abandon">Spel stoppen</button>
+</div>

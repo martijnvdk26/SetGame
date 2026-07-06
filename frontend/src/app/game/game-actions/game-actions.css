@@ -1,0 +1,37 @@
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+button {
+  font: inherit;
+  padding: 8px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+button:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn-abandon {
+  background: #fecaca;
+  border-color: #f87171;
+  color: #b91c1c;
+}
+
+.btn-abandon:hover {
+  background: #fca5a5;
+  border-color: #ef4444;
+}

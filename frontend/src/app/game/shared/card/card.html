@@ -37,6 +37,14 @@
   </defs>
 </svg>
 
+<button
+type="button"
+class="card"
+[class.selected]="selected"
+[class.hinted]="hinted"
+(click)="onClick()"
+>
+
 @for (_ of getShapeYPositions(card.number); track $index) {
   <svg viewBox="-5 0 150 100" class="card-svg" [attr.aria-label]="card.shape + ' ' + card.color">
     <use
@@ -54,3 +62,4 @@
     ></use>
   </svg>
 }
+</button>

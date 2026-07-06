@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\frontend",
+    "\\frontend\\src",
+    "\\frontend\\src\\app",
+    "\\frontend\\src\\app\\game",
+    "\\frontend\\src\\app\\game\\game-actions",
+    "\\frontend\\src\\app\\game\\game-board",
+    "\\frontend\\src\\app\\game\\game-meta"
+  ],
+  "PreviewInSolutionExplorer": false
+}

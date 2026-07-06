@@ -5,11 +5,20 @@ import { AuthService } from '../../auth/services/auth';
 import { GameService } from '../services/game';
 import { Api } from '../../shared/services/api';
 import { CardComponent } from '../shared/card/card';
+import { GameMetaComponent } from '../game-meta/game-meta';
+import { StatusMessageComponent } from '../status-message/status-message';
+import { GameActionsComponent } from '../game-actions/game-actions';
 
 @Component({
   selector: 'app-game-board',
   standalone: true,
-  imports: [CommonModule, CardComponent],
+  imports: [
+    CommonModule,
+    CardComponent,
+    GameMetaComponent,
+    StatusMessageComponent,
+    GameActionsComponent,
+  ],
   templateUrl: './game-board.html',
   styleUrl: './game-board.css',
 })
@@ -20,64 +29,56 @@ export class GameBoardComponent implements OnInit {
     private api: Api,
     private router: Router,
     private route: ActivatedRoute,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      const gameId = params['gameId'];
-      if (gameId) {
-        this.gameService.loadExistingGame(parseInt(gameId)).catch(() => {});
-      } else if (!this.gameService.game()) {
-        this.newGame();
-      }
-    });
-  }
+  this.route.params.subscribe((params) => {
+    const gameId = params['gameId'];
+    if (gameId) {
+      this.gameService.loadExistingGame(parseInt(gameId)).subscribe({ error: () => {} });
+    } else if (!this.gameService.game()) {
+      this.newGame();
+    }
+  });
+}
 
-  newGame(): void {
-    this.gameService.startNewGame().catch(() => {});
-  }
+newGame(): void {
+  this.gameService.startNewGame().subscribe({ error: () => {} });
+}
 
   select(cardId: number): void {
     this.gameService.selectCard(cardId);
   }
-
   clearSelection(): void {
     this.gameService.clearSelection();
   }
-
-  // NIEUW: Hint opvragen
   requestHint(): void {
     this.gameService.requestHint();
   }
-
   goHome(): void {
     this.gameService.reset();
     this.router.navigate(['/games']);
   }
 
-  async abandonGame(): Promise<void> {
+  abandonGame(): void {
     const game = this.gameService.game();
-    if (game) {
-      try {
-        await this.api.abandonGame(game.id).toPromise();
+    if (!game) return;
+    this.api.abandonGame(game.id).subscribe({
+      next: () => {
         this.gameService.reset();
         this.router.navigate(['/games']);
-      } catch (err) {
-        console.error('Fout bij stoppen van spel', err);
-      }
-    }
+      },
+      error: (err) => console.error('Fout bij stoppen van spel', err),
+    });
   }
 
   logout(): void {
     this.auth.logout();
     this.router.navigate(['/login']);
   }
-
   isSelected(cardId: number): boolean {
     return this.gameService.selectedIds().includes(cardId);
   }
-
-  // NIEUW: Check of kaart ge-hint wordt
   isHinted(cardId: number): boolean {
     return this.gameService.hintedIds().includes(cardId);
   }

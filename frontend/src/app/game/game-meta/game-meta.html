@@ -1,0 +1,8 @@
+@if (gameService.game(); as game){
+  <div class="meta">
+    <p><strong>Status:</strong> {{ game.status }}</p>
+    <p><strong>Kaarten in deck:</strong>{{ game.cardsRemainingInDeck }}</p>
+    <p><strong>Sets gevonden: {{game.setsFound }}</strong></p>
+    <p><strong>Mogelijke sets op het bord: </strong>{{ game.possibleSetsOnBoard}}</p>
+  </div>
+}

@@ -58,35 +58,34 @@ export class GamesOverviewComponent implements OnInit {
       });
   }
 
-  async startNewGame(): Promise<void> {
-    try {
-      const gameId = await this.gameService.startNewGame();
-      await this.router.navigate(['/game-board', gameId]);
-    } catch (err) {
-      console.error('Nieuw spel starten mislukt', err);
-      this.error.set('Nieuw spel starten mislukt.');
-    }
-  }
+  startNewGame(): void {
+  this.gameService.startNewGame().subscribe({
+    next: (game) => this.router.navigate(['/game-board', game.id]),
+    error: () => this.error.set('Nieuw spel starten mislukt.'),
+  });
+}
 
-  async continueGame(gameId: number): Promise<void> {
-    try {
-      await this.gameService.loadExistingGame(gameId);
-      await this.router.navigate(['/game-board', gameId]);
-    } catch (err) {
-      console.error('Fout bij laden van spel', err);
-      this.error.set('Dit spel kon niet worden geladen.');
-    }
-  }
+continueGame(gameId: number): void {
+  this.gameService.loadExistingGame(gameId).subscribe({
+    next: (game) => this.router.navigate(['/game-board', game.id]),
+    error: () => this.error.set('Dit spel kon niet worden geladen.'),
+  });
+}
 
-  async abandonGame(gameId: number): Promise<void> {
-    try {
-      await this.api.abandonGame(gameId).toPromise();
-      this.gameService.reset();
-      this.loadGames();
-    } catch (err) {
-      console.error('Fout bij stoppen van spel', err);
-      this.error.set('Spel kon niet worden gestopt.');
-    }
+
+
+
+  abandonGame(gameId: number): void {
+    this.api.abandonGame(gameId).subscribe({
+      next: () => {
+        this.gameService.reset();
+        this.loadGames();
+      },
+      error: (err) => {
+        console.error('Fout bij stoppen van spel', err);
+        this.error.set('Spel kon niet worden gestopt.');
+      },
+    });
   }
 
   viewStatistics(gameId: number): void {

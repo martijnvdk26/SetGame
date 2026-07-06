@@ -1,0 +1,5 @@
+<div class="status">
+  @if (gameService.isLoading()) { <p>Bezig...</p> }
+  @if (gameService.errorMessage()) { <p class="error">{{ gameService.errorMessage() }}</p> }
+  @if (gameService.infoMessage()) { <p class="success">{{ gameService.infoMessage() }}</p> }
+</div>

@@ -29,7 +29,7 @@ public class GameService : IGameService
             game.Cards[i].IsInPlay = true;
         }
 
-        // Zorg ervoor dat de startopstelling speelbaar is (Eis 9)
+        // Zorg ervoor dat de startopstelling speelbaar is
         EnsureValidSetsOnBoard(game);
 
         var createdGame = await _gameRepository.AddGameAsync(game);
@@ -93,13 +93,13 @@ public class GameService : IGameService
                 }
             }
 
-            // Zorg dat het nieuwe bord minstens 1 speelbare set heeft (Eis 9)
+            // Zorg dat het nieuwe bord minstens 1 speelbare set heeft
             EnsureValidSetsOnBoard(game);
 
             var remainingInPlayCards = game.Cards.Where(c => c.IsInPlay).ToList();
             var remainingDeckCards = game.Cards.Where(c => !c.IsInPlay && !c.IsMatched).ToList();
 
-            // Check if game is finished (Eis 12)
+            // Check if game is finished
             if (remainingInPlayCards.Count < 12 && remainingDeckCards.Count == 0 && GetAllSetsOnBoard(remainingInPlayCards).Count == 0)
             {
                 game.Status = GameStatus.Won;
@@ -178,7 +178,7 @@ public class GameService : IGameService
 
         if (allSets.Any())
         {
-            // We hogen het aantal hints op in de DB
+            // Het ophogen van het aantal hints in de database
             game.HintsUsed++;
             await _gameRepository.UpdateGameAsync(game);
 
@@ -198,7 +198,7 @@ public class GameService : IGameService
         var cardsInPlay = game.Cards.Where(c => c.IsInPlay).ToList();
         var deckCards = game.Cards.Where(c => !c.IsInPlay && !c.IsMatched).ToList();
 
-        // Blijf 3 kaarten toevoegen zolang er geen set op tafel ligt en het deck niet leeg is
+        // Blijft 3 kaarten toevoegen zolang er geen set op tafel ligt en het deck niet leeg is
         while (GetAllSetsOnBoard(cardsInPlay).Count == 0 && deckCards.Count > 0)
         {
             int cardsToAdd = Math.Min(3, deckCards.Count);
@@ -222,7 +222,7 @@ public class GameService : IGameService
 
     private void FindSetsRecursive(List<Card> currentCombination, int startIndex, List<Card> cardsInPlay, List<List<Card>> foundSets)
     {
-        // Base case: we hebben 3 kaarten geselecteerd
+        
         if (currentCombination.Count == 3)
         {
             if (IsValidSet(currentCombination[0], currentCombination[1], currentCombination[2]))
@@ -232,7 +232,7 @@ public class GameService : IGameService
             return; 
         }
 
-        // Recursieve case: probeer kaarten toe te voegen aan de combinatie
+        // Try to add cards to the combination
         for (int i = startIndex; i < cardsInPlay.Count; i++)
         {
             currentCombination.Add(cardsInPlay[i]); 
@@ -241,8 +241,7 @@ public class GameService : IGameService
         }
     }
 
-    // --- Bestaande interne logica ---
-
+    
     private List<Card> GenerateDeck()
     {
         var deck = new List<Card>();

@@ -45,43 +45,6 @@
   justify-content: flex-start;
 }
 
-.card {
-  border: 2px solid #d1d5db;
-  border-radius: 12px;
-  background: white;
-  padding: 16px;
-  cursor: pointer;
-  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  min-height: 200px;
-  aspect-ratio: 3 / 4;
-}
-
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
-.card:active {
-  transform: translateY(0);
-}
-
-.card.selected {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
-  background: #eff6ff;
-}
-
-/* AANGEPAST: Alleen een strakke, permanente omlijning zonder oplichten/animatie */
-.card.hinted {
-  border-color: #fbbf24;
-  box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.4);
-}
-
 .actions {
   display: flex;
   gap: 12px;
@@ -133,10 +96,10 @@ button:disabled {
     gap: 12px;
   }
 
-  .card {
+/*  .card {
     min-height: 160px;
     padding: 12px;
-  }
+  }*/
 
   button {
     padding: 6px 12px;

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 export interface CardViewModel {
   id: number;
@@ -18,6 +18,13 @@ export interface CardViewModel {
 })
 export class CardComponent {
   @Input({ required: true }) card!: CardViewModel;
+  @Input() selected = false;
+  @Input() hinted = false;
+  @Output() cardSelected = new EventEmitter<number>();
+
+  onClick(): void {
+    this.cardSelected.emit(this.card.id);
+  }
 
   colorMap(color: string): string {
     const map: Record<string, string> = {

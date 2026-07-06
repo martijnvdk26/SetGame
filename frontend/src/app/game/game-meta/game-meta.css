@@ -1,0 +1,6 @@
+.meta {
+  margin-bottom: 16px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}

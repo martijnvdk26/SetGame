@@ -1,3 +1,5 @@
+import { Observable, throwError } from 'rxjs';
+import { tap, catchError, finalize } from 'rxjs/operators';
 import { Injectable, computed, signal } from '@angular/core';
 import { Api } from '../../shared/services/api';
 
@@ -19,7 +21,7 @@ export interface GameResponse {
   startTime: string;
   endTime: string | null;
   setsFound: number;
-  possibleSetsOnBoard: number; // Nieuw (Eis 3)
+  possibleSetsOnBoard: number;
 }
 
 export interface FoundSetDto {
@@ -35,7 +37,7 @@ export interface GameStatisticsResponse {
   startTime: string;
   endTime: string | null;
   foundSets: FoundSetDto[];
-  possibleSetsOnBoard: number; // Nieuw (Eis 8)
+  possibleSetsOnBoard: number;
 }
 
 @Injectable({
@@ -80,53 +82,35 @@ export class GameService {
     }
   }
 
-  startNewGame(): Promise<number> {
-    return new Promise((resolve, reject) => {
-      this.loading.set(true);
-      this.error.set(null);
-      this.message.set(null);
+  startNewGame(): Observable<GameResponse> {
+  this.loading.set(true); this.error.set(null); this.message.set(null);
+  return this.api.startGame().pipe(
+    tap((response: GameResponse) => {
+      this.currentGame.set(response);
+      this.saveGameToStorage();
+      this.selectedCardIds.set([]);
+      this.hintedCardIds.set([]);
+    }),
+    catchError((err) => { this.error.set('Kon geen nieuw spel starten.'); return throwError(() => err); }),
+    finalize(() => this.loading.set(false)),
+  );
+}
 
-      this.api.startGame().subscribe({
-        next: (response: GameResponse) => {
-          this.currentGame.set(response);
-          this.saveGameToStorage();
-          this.selectedCardIds.set([]);
-          this.hintedCardIds.set([]);
-          this.loading.set(false);
-          resolve(response.id);
-        },
-        error: () => {
-          this.error.set('Kon geen nieuw spel starten.');
-          this.loading.set(false);
-          reject();
-        },
-      });
-    });
-  }
 
-  loadExistingGame(gameId: number): Promise<number> {
-    return new Promise((resolve, reject) => {
-      this.loading.set(true);
-      this.error.set(null);
-      this.message.set(null);
 
-      this.api.getGame(gameId).subscribe({
-        next: (response: GameResponse) => {
-          this.currentGame.set(response);
-          this.saveGameToStorage();
-          this.selectedCardIds.set([]);
-          this.hintedCardIds.set([]);
-          this.loading.set(false);
-          resolve(response.id);
-        },
-        error: () => {
-          this.error.set('Kon het bestaande spel niet inladen.');
-          this.loading.set(false);
-          reject();
-        },
-      });
-    });
-  }
+loadExistingGame(gameId: number): Observable<GameResponse> {
+  this.loading.set(true); this.error.set(null); this.message.set(null);
+  return this.api.getGame(gameId).pipe(
+    tap((response: GameResponse) => {
+      this.currentGame.set(response);
+      this.saveGameToStorage();
+      this.selectedCardIds.set([]);
+      this.hintedCardIds.set([]);
+    }),
+    catchError((err) => { this.error.set('Kon het bestaande spel niet inladen.'); return throwError(() => err); }),
+    finalize(() => this.loading.set(false)),
+  );
+}
 
   selectCard(cardId: number): void {
     if (this.loading()) return;
@@ -153,25 +137,21 @@ export class GameService {
   }
 
   requestHint(): void {
-    const game = this.currentGame();
-    if (!game || this.loading()) return;
+  const game = this.currentGame();
+  if (!game || this.loading()) return;
+  this.loading.set(true); this.error.set(null); this.message.set(null);
+  this.api.getHint(game.id).pipe(
+    tap((cardIds: number[]) => this.hintedCardIds.set(cardIds)),
+    catchError((err) => {
+      console.error('De exacte foutmelding van de backend is:', err);
+      this.error.set('Kon geen hint ophalen. Is er wel een set mogelijk?');
+      return throwError(() => err);
+    }),
+    finalize(() => this.loading.set(false)),
+  ).subscribe({ error: () => {} });
+}
 
-    this.loading.set(true);
-    this.error.set(null);
-    this.message.set(null);
 
-    this.api.getHint(game.id).subscribe({
-      next: (cardIds: number[]) => {
-        this.hintedCardIds.set(cardIds);
-        this.loading.set(false);
-      },
-      error: (err) => {
-        console.error("De exacte foutmelding van de backend is:", err);
-        this.error.set('Kon geen hint ophalen. Is er wel een set mogelijk?');
-        this.loading.set(false);
-      }
-    });
-  }
 
   reset(): void {
     this.currentGame.set(null);
@@ -184,38 +164,24 @@ export class GameService {
   }
 
   private checkSet(cardIds: number[]): void {
-    const game = this.currentGame();
-    if (!game) return;
+  const game = this.currentGame();
+  if (!game) return;
+  this.loading.set(true); this.error.set(null); this.message.set(null);
+  this.api.checkSet(game.id, cardIds).pipe(
+    tap((response: GameResponse) => {
+      this.currentGame.set(response);
+      this.saveGameToStorage();
+      this.selectedCardIds.set([]);
+      this.hintedCardIds.set([]);
+      const selectedRemoved = cardIds.every((id) => !response.cards.some((c) => c.id === id));
+      if (response.status === 'Won') this.message.set('🎉 Je hebt gewonnen!');
+      else if (selectedRemoved) this.message.set('✅ Geldige set!');
+      else this.message.set('❌ Geen geldige set. Probeer opnieuw.');
+    }),
+    catchError((err) => { this.error.set('Set check mislukt.'); return throwError(() => err); }),
+    finalize(() => this.loading.set(false)),
+  ).subscribe({ error: () => {} });
+}
 
-    this.loading.set(true);
-    this.error.set(null);
-    this.message.set(null);
 
-    this.api.checkSet(game.id, cardIds).subscribe({
-      next: (response: GameResponse) => {
-        this.currentGame.set(response);
-        this.saveGameToStorage();
-        this.selectedCardIds.set([]);
-        this.hintedCardIds.set([]); 
-
-        const selectedRemoved = cardIds.every(
-          (id) => !response.cards.some((card) => card.id === id),
-        );
-
-        if (response.status === 'Won') {
-          this.message.set('🎉 Je hebt gewonnen!');
-        } else if (selectedRemoved) {
-          this.message.set('✅ Geldige set!');
-        } else {
-          this.message.set('❌ Geen geldige set. Probeer opnieuw.');
-        }
-
-        this.loading.set(false);
-      },
-      error: () => {
-        this.error.set('Set check mislukt.');
-        this.loading.set(false);
-      },
-    });
-  }
 }
