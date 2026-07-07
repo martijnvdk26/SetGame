@@ -10,10 +10,9 @@ import { GameService } from '../services/game';
   styleUrl: './game-actions.css',
 })
 export class GameActionsComponent {
-  // Navigation-related actions bubble up to the container (callback pattern)
+  
   @Output() newGame = new EventEmitter<void>();
   @Output() abandon = new EventEmitter<void>();
 
-  // Pure state actions go straight through the shared service
-  constructor(public gameService: GameService) {}
+ constructor(public gameService: GameService) {}
 }

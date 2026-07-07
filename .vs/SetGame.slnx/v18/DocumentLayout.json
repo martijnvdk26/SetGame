@@ -40,7 +40,7 @@
               "RelativeDocumentMoniker": "frontend\\src\\app\\game\\shared\\card\\card.ts",
               "ToolTip": "D:\\SetGame\\frontend\\src\\app\\game\\shared\\card\\card.ts",
               "RelativeToolTip": "frontend\\src\\app\\game\\shared\\card\\card.ts",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAQwB4AAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
               "WhenOpened": "2026-07-05T13:03:09.166Z",
               "EditorCaption": ""
@@ -55,8 +55,7 @@
               "RelativeToolTip": "frontend\\src\\app\\game\\game-board\\game-board.ts",
               "ViewState": "AgIAAAwAAAAAAAAAAAAqwC4AAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2026-07-05T12:39:38.872Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-05T12:39:38.872Z"
             },
             {
               "$type": "Document",
@@ -68,8 +67,7 @@
               "RelativeToolTip": "frontend\\src\\app\\game\\games-overview\\games-overview.ts",
               "ViewState": "AgIAADAAAAAAAAAAAAAowEkAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2026-07-05T12:39:18.522Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-05T12:39:18.522Z"
             },
             {
               "$type": "Document",
@@ -81,8 +79,7 @@
               "RelativeToolTip": "frontend\\src\\app\\game\\services\\game.ts",
               "ViewState": "AgIAAJoAAAAAAAAAAAAcwMIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2026-07-02T10:19:04.84Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-02T10:19:04.84Z"
             }
           ]
         }
